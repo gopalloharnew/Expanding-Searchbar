@@ -1,0 +1,185 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --search-size: 56px;
+    --search-bg: hsl(0, 0%, 100%);
+    --search-text: hsl(280, 50%, 10%);
+    --search-accent: hsl(280, 100%, 50%);
+}
+
+body{
+    width: 100%;
+    min-height: 100vh;
+    /* background-color: hsl(0, 0%, 75%); */
+    background-color: var(--search-bg);
+    color: black;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.search-box{
+    width: 90vw;
+    height: calc(var(--search-size) + 16px);
+    max-width: 1000px;
+    min-width: calc(var(--search-size) + 16px);
+    border-radius: 2px;
+    margin-top: 2rem;
+    /* background-color: var(--search-bg); */
+    padding: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.expanding-search-box{
+    height: var(--search-size);
+    background-color: var(--search-bg);
+    border: 2px solid var(--search-accent);
+    border-radius: calc(var(--search-size) / 2);
+    overflow: hidden;
+    position: relative;
+    width: var(--search-size);
+    min-width: var(--search-size);
+    transition: width 250ms cubic-bezier(.18,.89,.46,1.11);
+}
+
+.search-form{
+    width: 100%;
+    height: 100%;
+}
+
+#search{
+    width: calc(100% + 4px - var(--search-size));
+    min-width: calc(var(--search-size) - 4px);
+    height: 100%;
+    border: none;
+    padding: 0rem calc(var(--search-size) / 3);
+    font-size: 1rem;
+    position: absolute;
+    outline: none;
+    color: var(--search-text);
+    left: 0px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    z-index: 210;
+    opacity: 0;
+    cursor: pointer;
+    transition: width 250ms cubic-bezier(.18,.89,.46,1.11), opacity 250ms cubic-bezier(.18,.89,.46,1.11);
+    background-color: transparent;
+}
+
+.submit{
+    width: calc(var(--search-size) - 4px);
+    height: calc(var(--search-size) - 4px);
+    background: var(--search-accent) content-box;
+    border: 3px solid transparent;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    outline: none;
+    border-radius: 100%;
+    overflow: hidden;
+    cursor: pointer;
+    z-index: 200;
+}
+
+.submit:focus, .submit:hover{
+    border-color: hsla(280, 100%, 50%, 0.2);
+}
+
+.search-icon{
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    color: var(--search-bg);
+}
+
+.search-icon-circle{
+    display: inline-block;
+    width: 40%;
+    height: 40%;
+    border-radius: 100%;
+    background-color: transparent;
+    border: 2px solid currentColor;
+    position: absolute;
+    top: 25%;
+    left: 25%;
+}
+
+.search-icon-handle{
+    width: 25%;
+    height: 25%;
+    border-radius: 100%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 55%;
+    left: 55%;
+}
+
+.search-icon-handle::before{
+    content: "";
+    display: inline-block;
+    width: 100%;
+    height: 2px;
+    background-color: currentColor;
+    transform: rotate(45deg);
+}
+
+.expanding-search-box:focus-within{
+    width: 90%;
+}
+
+.expanding-search-box:focus-within #search{
+    opacity: 1;
+    cursor: initial;
+}
+
+.clear{
+    width: calc(var(--search-size) - 4px);
+    height: calc(var(--search-size) - 4px);
+    background: transparent;
+    border: 3px solid transparent;
+    position: absolute;
+    right: calc(var(--search-size) - 4px);
+    top: 0px;
+    bottom: 0px;
+    outline: none;
+    border-radius: 100%;
+    overflow: hidden;
+    cursor: pointer;
+    z-index: 220;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.clear::before, .clear::after{
+    content: "";
+    display: inline-block;
+    width: 40%;
+    height: 2px;
+    border-radius: 1px;
+    background-color: var(--search-text);
+    opacity: 0.75;
+    position: absolute;
+}
+
+.clear::before{
+    transform: rotate(45deg);
+}
+
+.clear::after{
+    transform: rotate(-45deg);
+}
+
+.clear.show{
+    display: flex;
+}
